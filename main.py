@@ -10,10 +10,11 @@ DEFAULT_FILENAME = "words.txt"
 DEFAULT_DUPLICATES = False
 
 
-def sort_list(items, ascending=True):
+def sort_list(items, ascending=True, dedupe=DEFAULT_DUPLICATES):
     if not isinstance(items, list):
         raise RuntimeError(f"No puede ordenar {type(items)}")
-
+    if dedupe:
+        items = list(set(items))
     return sorted(items, reverse=(not ascending))
 
 
@@ -43,7 +44,4 @@ if __name__ == "__main__":
         print(f"El fichero {filename} no existe")
         word_list = ["ravenclaw", "gryffindor", "slytherin", "hufflepuff"]
 
-    if remove_duplicates:
-        word_list = remove_duplicates_from_list(word_list)
-
-    print(sort_list(word_list))
+    print(sort_list(word_list, dedupe=remove_duplicates))
